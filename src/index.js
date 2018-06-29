@@ -43,7 +43,7 @@ class TypeForm extends React.Component {
 
   /** Get the current component to show on screen */
   getCurrentView(children) {
-    let allChildren;
+    let allChildren = [];
     allChildren = React.Children.map(children, (child, index) => {
       let currentChild = this.setClass(child, this.styles.tfHide);
       if (index === this.state.current) {
@@ -53,9 +53,14 @@ class TypeForm extends React.Component {
     });
     /** If all elements are shown then show a review screen */
     if (this.isLastComponent()) {
-      allChildren = React.Children.map(children, (child) =>
-        (this.setClass(child, this.styles.tfShow))
-      );
+      if (this.props.showReviewView) {
+        React.Children.map(children, (child) =>
+          allChildren.push(this.setClass(child, this.styles.tfShow))
+        );
+      }
+      if (this.props.completionText) {
+        allChildren.push(<div className="form-completion-text">{this.props.completionText}</div>);
+      }
     }
     return allChildren;
   }
@@ -133,10 +138,12 @@ TypeForm.propTypes = {
   backBtnOnClick: PropTypes.func,
   backBtnText: PropTypes.string,
   children: PropTypes.array.isRequired,
+  completionText: PropTypes.string,
   nextBtnClass: PropTypes.string,
   nextBtnOnClick: PropTypes.func,
   nextBtnText: PropTypes.string,
   onSubmit: PropTypes.func,
+  showReviewView: PropTypes.bool,
   submitBtnClass: PropTypes.string,
   submitBtnText: PropTypes.string,
 };

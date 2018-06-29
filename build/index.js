@@ -79,7 +79,7 @@ var TypeForm = function (_React$Component) {
     value: function getCurrentView(children) {
       var _this2 = this;
 
-      var allChildren = void 0;
+      var allChildren = [];
       allChildren = _react2.default.Children.map(children, function (child, index) {
         var currentChild = _this2.setClass(child, _this2.styles.tfHide);
         if (index === _this2.state.current) {
@@ -89,9 +89,18 @@ var TypeForm = function (_React$Component) {
       });
       /** If all elements are shown then show a review screen */
       if (this.isLastComponent()) {
-        allChildren = _react2.default.Children.map(children, function (child) {
-          return _this2.setClass(child, _this2.styles.tfShow);
-        });
+        if (this.props.showReviewView) {
+          _react2.default.Children.map(children, function (child) {
+            return allChildren.push(_this2.setClass(child, _this2.styles.tfShow));
+          });
+        }
+        if (this.props.completionText) {
+          allChildren.push(_react2.default.createElement(
+            'div',
+            { className: 'form-completion-text' },
+            this.props.completionText
+          ));
+        }
       }
       return allChildren;
     }
@@ -188,10 +197,12 @@ TypeForm.propTypes = {
   backBtnOnClick: _propTypes2.default.func,
   backBtnText: _propTypes2.default.string,
   children: _propTypes2.default.array.isRequired,
+  completionText: _propTypes2.default.string,
   nextBtnClass: _propTypes2.default.string,
   nextBtnOnClick: _propTypes2.default.func,
   nextBtnText: _propTypes2.default.string,
   onSubmit: _propTypes2.default.func,
+  showReviewView: _propTypes2.default.bool,
   submitBtnClass: _propTypes2.default.string,
   submitBtnText: _propTypes2.default.string
 };
