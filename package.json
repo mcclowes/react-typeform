@@ -65,6 +65,9 @@
     "url": "https://github.com/mohithg/react-typeform.git/issues"
   },
   "homepage": "https://github.com/mohithg/react-typeform.git#readme",
-  "author": "Mohith G",
+  "author": "Mohith G <> (https://github.com/mohithg)",
+  "contributors": [
+    "Max Clayton Clowes <maxcc@me.com> (https://github.com/mcclowes)"
+  ],
   "license": "MIT"
 }
