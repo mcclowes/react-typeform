@@ -87,13 +87,11 @@ var TypeForm = function (_React$Component) {
         }
         return currentChild;
       });
-      /** If all elements are shown then show a review screen */
-      if (this.isLastComponent()) {
-        if (this.props.showReviewView) {
-          _react2.default.Children.map(children, function (child) {
-            return allChildren.push(_this2.setClass(child, _this2.styles.tfShow));
-          });
-        }
+      /** If all elements are shown then conditionally show a review screen */
+      if (this.isLastComponent() && !this.showReviewView) {
+        _react2.default.Children.map(children, function (child) {
+          return allChildren.push(_this2.setClass(child, _this2.styles.tfShow));
+        });
         if (this.props.completionText) {
           allChildren.push(_react2.default.createElement(
             'div',
@@ -146,7 +144,7 @@ var TypeForm = function (_React$Component) {
   }, {
     key: 'isLastComponent',
     value: function isLastComponent() {
-      return this.state.current === this.props.children.length;
+      return this.showReviewView ? this.state.current === this.props.children.length - 1 : this.state.current === this.props.children.length;
     }
 
     /** render the typeform */

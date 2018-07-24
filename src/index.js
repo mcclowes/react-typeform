@@ -51,13 +51,11 @@ class TypeForm extends React.Component {
       }
       return currentChild;
     });
-    /** If all elements are shown then show a review screen */
-    if (this.isLastComponent()) {
-      if (this.props.showReviewView) {
-        React.Children.map(children, (child) =>
-          allChildren.push(this.setClass(child, this.styles.tfShow))
-        );
-      }
+    /** If all elements are shown then conditionally show a review screen */
+    if (this.isLastComponent() && !this.showReviewView) {
+      React.Children.map(children, (child) =>
+        allChildren.push(this.setClass(child, this.styles.tfShow))
+      );
       if (this.props.completionText) {
         allChildren.push(<div className="form-completion-text">{this.props.completionText}</div>);
       }
@@ -94,7 +92,9 @@ class TypeForm extends React.Component {
 
   /** Check if last component */
   isLastComponent() {
-    return this.state.current === this.props.children.length;
+    return this.showReviewView ?
+      this.state.current === this.props.children.length - 1 :
+      this.state.current === this.props.children.length;
   }
 
   /** render the typeform */
