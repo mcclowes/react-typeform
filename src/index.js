@@ -52,7 +52,7 @@ class TypeForm extends React.Component {
       return currentChild;
     });
     /** If all elements are shown then conditionally show a review screen */
-    if (this.isLastComponent() && !this.showReviewView) {
+    if (this.isLastComponent() && this.props.showReviewView) {
       React.Children.map(children, (child) =>
         allChildren.push(this.setClass(child, this.styles.tfShow))
       );
@@ -92,9 +92,9 @@ class TypeForm extends React.Component {
 
   /** Check if last component */
   isLastComponent() {
-    return this.showReviewView ?
-      this.state.current === this.props.children.length - 1 :
-      this.state.current === this.props.children.length;
+    return this.props.showReviewView ?
+      this.state.current === this.props.children.length :
+      this.state.current === (this.props.children.length - 1);
   }
 
   /** render the typeform */

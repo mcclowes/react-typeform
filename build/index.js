@@ -88,7 +88,7 @@ var TypeForm = function (_React$Component) {
         return currentChild;
       });
       /** If all elements are shown then conditionally show a review screen */
-      if (this.isLastComponent() && !this.showReviewView) {
+      if (this.isLastComponent() && this.props.showReviewView) {
         _react2.default.Children.map(children, function (child) {
           return allChildren.push(_this2.setClass(child, _this2.styles.tfShow));
         });
@@ -144,7 +144,7 @@ var TypeForm = function (_React$Component) {
   }, {
     key: 'isLastComponent',
     value: function isLastComponent() {
-      return this.showReviewView ? this.state.current === this.props.children.length - 1 : this.state.current === this.props.children.length;
+      return this.props.showReviewView ? this.state.current === this.props.children.length : this.state.current === this.props.children.length - 1;
     }
 
     /** render the typeform */
